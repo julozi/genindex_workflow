@@ -80,12 +80,12 @@ rule bowtie1_indexes:
   input:
     "{name}/{prefix}/fasta_unmasked/{prefix}.fa"
   output:
-    "{name}/{prefix}/unmasked_bowtie1_indexes/{prefix}.1.ebwt"
-    "{name}/{prefix}/unmasked_bowtie1_indexes/{prefix}.2.ebwt"
-    "{name}/{prefix}/unmasked_bowtie1_indexes/{prefix}.3.ebwt"
-    "{name}/{prefix}/unmasked_bowtie1_indexes/{prefix}.4.ebwt"
-    "{name}/{prefix}/unmasked_bowtie1_indexes/{prefix}.rev.1.ebwt"
-    "{name}/{prefix}/unmasked_bowtie1_indexes/{prefix}.rev.2.ebwt"
+    ebwt1="{name}/{prefix}/unmasked_bowtie1_indexes/{prefix}.1.ebwt"
+    ebwt2="{name}/{prefix}/unmasked_bowtie1_indexes/{prefix}.2.ebwt"
+    ebwt3="{name}/{prefix}/unmasked_bowtie1_indexes/{prefix}.3.ebwt"
+    ebwt4="{name}/{prefix}/unmasked_bowtie1_indexes/{prefix}.4.ebwt"
+    ebwtrev1="{name}/{prefix}/unmasked_bowtie1_indexes/{prefix}.rev.1.ebwt"
+    ebwtrev2="{name}/{prefix}/unmasked_bowtie1_indexes/{prefix}.rev.2.ebwt"
   conda:
     "env.yaml"
   resources:
@@ -99,12 +99,12 @@ rule bowtie2_indexes:
   input:
     "{name}/{prefix}/fasta_unmasked/{prefix}.fa"
   output:
-    "{name}/{prefix}/unmasked_bowtie1_indexes/{prefix}.1.bt2"
-    "{name}/{prefix}/unmasked_bowtie1_indexes/{prefix}.2.bt2"
-    "{name}/{prefix}/unmasked_bowtie1_indexes/{prefix}.3.bt2"
-    "{name}/{prefix}/unmasked_bowtie1_indexes/{prefix}.4.bt2"
-    "{name}/{prefix}/unmasked_bowtie1_indexes/{prefix}.rev.1.bt2"
-    "{name}/{prefix}/unmasked_bowtie1_indexes/{prefix}.rev.2.bt2"
+    bt21="{name}/{prefix}/unmasked_bowtie2_indexes/{prefix}.1.bt2"
+    bt22="{name}/{prefix}/unmasked_bowtie2_indexes/{prefix}.2.bt2"
+    bt23="{name}/{prefix}/unmasked_bowtie2_indexes/{prefix}.3.bt2"
+    bt24="{name}/{prefix}/unmasked_bowtie2_indexes/{prefix}.4.bt2"
+    bt2rev1="{name}/{prefix}/unmasked_bowtie2_indexes/{prefix}.rev.1.bt2"
+    bt2rev2="{name}/{prefix}/unmasked_bowtie2_indexes/{prefix}.rev.2.bt2"
   conda:
     "env.yaml"
   resources:
@@ -114,15 +114,15 @@ rule bowtie2_indexes:
       bowtie2-build {input} {wildcards.name}/{wildcards.prefix}/unmasked_bowtie2_indexes/{wildcards.prefix}
     """
 
-rule bwa_index:
+rule bwa_indexes:
   input:
     "{name}/{prefix}/fasta_unmasked/{prefix}.fa"
   output:
-    "{name}/{prefix}/unmasked_bowtie1_indexes/{prefix}.amb"
-    "{name}/{prefix}/unmasked_bowtie1_indexes/{prefix}.ann"
-    "{name}/{prefix}/unmasked_bowtie1_indexes/{prefix}.bwt"
-    "{name}/{prefix}/unmasked_bowtie1_indexes/{prefix}.pac"
-    "{name}/{prefix}/unmasked_bowtie1_indexes/{prefix}.sa"
+    amb="{name}/{prefix}/unmasked_bwa_indexes/{prefix}.amb"
+    ann="{name}/{prefix}/unmasked_bwa_indexes/{prefix}.ann"
+    bwt="{name}/{prefix}/unmasked_bwa_indexes/{prefix}.bwt"
+    pac="{name}/{prefix}/unmasked_bwa_indexes/{prefix}.pac"
+    sa="{name}/{prefix}/unmasked_bwa_indexes/{prefix}.sa"
   conda:
     "env.yaml"
   resources:
@@ -134,12 +134,12 @@ rule bwa_index:
 
 rule make_all:
   input:
-    "{name}/{prefix}/unmasked_bowtie1_indexes/{prefix}.amb"
-    "{name}/{prefix}/unmasked_bowtie1_indexes/{prefix}.1.bt2"
-    "{name}/{prefix}/unmasked_bowtie1_indexes/{prefix}.1.ebwt"
-    "{name}/{prefix}/fasta_unmasked/{prefix}.fa.dict"
-    "{name}/{prefix}/fasta_unmasked/{prefix}.fa.fai"
-    "{name}/{prefix}/2bit/{prefix}.2bit"
+    bwa="{name}/{prefix}/unmasked_bwa_indexes/{prefix}.amb"
+    bowtie2="{name}/{prefix}/unmasked_bowtie2_indexes/{prefix}.1.bt2"
+    bowtie1="{name}/{prefix}/unmasked_bowtie1_indexes/{prefix}.1.ebwt"
+    fadict="{name}/{prefix}/fasta_unmasked/{prefix}.fa.dict"
+    fai="{name}/{prefix}/fasta_unmasked/{prefix}.fa.fai"
+    twobit="{name}/{prefix}/2bit/{prefix}.2bit"
   output:
     "{name}/{prefix}/fasta_unmasked/done"
   shell:
