@@ -1,5 +1,5 @@
 GENOME_URLS = {
-    'hg19': 'http://hgdownload.soe.ucsc.edu/goldenPath/hg19/bigZips/chromFa.tar.gz'
+  'hg19': 'http://hgdownload.soe.ucsc.edu/goldenPath/hg19/bigZips/chromFa.tar.gz'
 }
 
 rule download:
@@ -34,4 +34,16 @@ rule twobit:
       falist=$(ls {wildcards.name}/{wildcards.prefix}/fasta_unmasked/chr*.fa | egrep "chr[0-9MXY]+.fa" | sort -k 1.4,1.5n)
       falist=$(echo $falist | perl -ne 's/\\n/ /g; print $_')
       faToTwoBit $falist {output}
+    """
+
+rule fasta_index:
+  input:
+    "{name}/{prefix}/fasta_unmasked/{prefix}.fa"
+  output:
+    "{name}/{prefix}/fasta_unmasked/{prefix}.fa.fai"
+  resources:
+    mem_mb=5120
+  shell:
+    """
+      samtools faidx {input}
     """
