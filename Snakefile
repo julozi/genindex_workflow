@@ -41,6 +41,8 @@ rule fasta_index:
     "{name}/{prefix}/fasta_unmasked/{prefix}.fa"
   output:
     "{name}/{prefix}/fasta_unmasked/{prefix}.fa.fai"
+  conda:
+    "env.yaml"
   resources:
     mem_mb=5120
   shell:
