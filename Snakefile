@@ -1,5 +1,9 @@
 GENOME_URLS = {
-  'hg19': 'http://hgdownload.soe.ucsc.edu/goldenPath/hg19/bigZips/chromFa.tar.gz'
+  'hg19': 'http://hgdownload.soe.ucsc.edu/goldenPath/hg19/bigZips/chromFa.tar.gz',
+  'hg38': 'http://hgdownload.soe.ucsc.edu/goldenPath/hg38/bigZips/hg38.chromFa.tar.gz',
+  'mm10': 'http://hgdownload.soe.ucsc.edu/goldenPath/mm10/bigZips/chromFa.tar.gz',
+  'mm9': 'http://hgdownload.soe.ucsc.edu/goldenPath/mm9/bigZips/chromFa.tar.gz',
+  'sacCer3': 'http://hgdownload.soe.ucsc.edu/goldenPath/sacCer3/bigZips/chromFa.tar.gz',
 }
 
 localrules: make_all
